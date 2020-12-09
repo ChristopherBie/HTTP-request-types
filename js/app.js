@@ -67,11 +67,13 @@ function showTweets() {
     let ajax = new XMLHttpRequest();
     ajax.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
+            let posts = JSON.parse(this.responseText);
             for(i = 0; i < posts.length; i++) {
                 console.log(JSON.parse(this.responseText));
-                let posts = JSON.parse(this.responseText);
                 let display = document.getElementById('display');
-                display.innerText = posts[0].body;
+                display.innerText += 'title: ' + posts[i].title + '\n';
+                display.innerText += 'message: ' + posts[i].body + '\n\n';
+
             }
         }
     }
