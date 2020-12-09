@@ -8,13 +8,19 @@ function sendTweet() {
         body: tweetBody,
         userId: 1
     }
-    let successMessage = document.querySelector('span');
+    let statusMessage = document.querySelector('span');
     
     let ajax = new XMLHttpRequest();
     ajax.onreadystatechange = function() {
+        if(this.readyState == 1) {
+            statusMessage.innerText = 'loading...\n';
+        }
+        if(this.status != 201) {
+            statusMessage.innerText += 'There was an error.\n';
+        }
         if(this.readyState == 4 && this.status == 201) {
             console.log(JSON.parse(this.responseText));
-            successMessage.innerText = 'Your message has been posted.';
+            statusMessage.innerText = 'Your message has been posted.';
         }
     }
     ajax.open("POST", "https://jsonplaceholder.typicode.com/posts", true);
@@ -36,6 +42,12 @@ function updateTweet() {
     }
     let ajax = new XMLHttpRequest();
     ajax.onreadystatechange = function() {
+        if(this.readyState == 1) {
+            statusMessage.innerText = 'loading...\n';
+        }
+        if(this.status != 200) {
+            statusMessage.innerText += 'There was an error.\n';
+        }
         if(this.readyState == 4 && this.status == 200) {
             console.log(JSON.parse(this.responseText));
         }
@@ -51,6 +63,12 @@ updateTweet();
 function deleteTweet() {
     let ajax = new XMLHttpRequest();
     ajax.onreadystatechange = function() {
+        if(this.readyState == 1) {
+            statusMessage.innerText = 'loading...\n';
+        }
+        if(this.status != 200) {
+            statusMessage.innerText += 'There was an error.\n';
+        }
         if(this.readyState == 4 && this.status == 200) {
             console.log(JSON.parse(this.responseText));
         }
@@ -66,6 +84,12 @@ deleteTweet();
 function showTweets() {
     let ajax = new XMLHttpRequest();
     ajax.onreadystatechange = function() {
+        if(this.readyState == 1) {
+            statusMessage.innerText = 'loading...\n';
+        }
+        if(this.status != 200) {
+            statusMessage.innerText += 'There was an error.\n';
+        }
         if(this.readyState == 4 && this.status == 200) {
             let posts = JSON.parse(this.responseText);
             for(i = 0; i < posts.length; i++) {
